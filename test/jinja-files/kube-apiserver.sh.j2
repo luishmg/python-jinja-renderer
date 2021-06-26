@@ -1,0 +1,58 @@
+#!/bin/bash
+
+INTERNAL_IP=$(ip addr show eth1 | grep "inet " | awk '{print $2}' | cut -d / -f 1)
+
+cat <<EOF | sudo tee /etc/systemd/system/kube-apiserver.service
+[Unit]
+Description=Kubernetes API Server
+Documentation=https://github.com/kubernetes/kubernetes
+
+[Service]
+ExecStart=/usr/local/bin/kube-apiserver \\
+  --advertise-address=${INTERNAL_IP} \\
+  --allow-privileged=true \\
+  --apiserver-count=3 \\
+  --audit-log-maxage=30 \\
+  --audit-log-maxbackup=3 \\
+  --audit-log-maxsize=100 \\
+  --audit-log-path=/var/log/audit.log \\
+  --authorization-mode=Node,RBAC \\
+  --bind-address=0.0.0.0 \\
+  --client-ca-file={{ k8s_cert_dir }}{{ k8s_ca_cert }} \\
+  --enable-admission-plugins={{ k8s_admission_plugins|join(",") }} \\
+  --enable-swagger-ui=true \\
+  --enable-bootstrap-token-auth=true \\
+  --etcd-cafile={{ k8s_cert_dir }}{{ k8s_ca_cert }} \\
+  --etcd-certfile={{ k8s_cert_dir }}{{ etcd_cert }} \\
+  --etcd-keyfile={{ k8s_cert_dir }}{{ etcd_key }} \\
+{%- set etcdservers = [] -%}
+{% for item in etcd_ip -%}
+{{ etcdservers.append( "https://"+item+":"+etcd_client_port ) or "" }}
+{%- endfor %}
+  --etcd-servers={{ etcdservers|join(",") }} \\
+  --event-ttl=1h \\
+  --encryption-provider-config={{ k8s_config_dir }}encryption-config.yaml \\
+  --kubelet-certificate-authority={{ k8s_cert_dir }}{{ k8s_ca_cert }} \\
+  --kubelet-client-certificate={{ k8s_cert_dir }}{{ k8s_apiserver_cert }} \\
+  --kubelet-client-key={{ k8s_cert_dir }}{{ k8s_apiserver_key }} \\
+  --kubelet-https=true \\
+  --runtime-config=api/all=true \\
+  --service-account-key-file={{ k8s_cert_dir }}{{ k8s_account_cert }} \\
+  --service-account-signing-key-file={{ k8s_cert_dir }}{{ k8s_account_key }} \\
+  --service-account-issuer=https://kubernetes.default.svc.cluster.local \\
+{%- set audience = [] -%}
+{% for item in cntlr_ip -%}
+{{ audience.append( "https://"+item ) or "" }}
+{%- endfor %}
+  --api-audiences={{ audience|join(",") }} \\
+  --service-cluster-ip-range={{ k8s_internal_network }} \\
+  --service-node-port-range=30000-32767 \\
+  --tls-cert-file={{ k8s_cert_dir }}{{ k8s_apiserver_cert }} \\
+  --tls-private-key-file={{ k8s_cert_dir }}{{ k8s_apiserver_key }} \\
+  --v={{ k8s_services_version }}
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
+EOF

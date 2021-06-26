@@ -1,0 +1,45 @@
+ERROR: In the line 2 in the file qa/test.app.json, should be written id.
+ERROR: In the line 3 in the file qa/test.app.json, should be written instances.
+ERROR: In the line 5 in the file qa/test.app.json, should be written cpus.
+ERROR: In the line 6 in the file qa/test.app.json, should be written mem.
+ERROR: In the line 7 in the file qa/test.app.json, should be written constraints.
+ERROR: In the line 11 in the file qa/test.app.json, should be written labels.
+ERROR: In the line 25 in the file qa/test.app.json, should be written traefik.tags.
+ERROR: In the line 26 in the file qa/test.app.json, should be written traefik.frontend.rule.
+ERROR: In the line 28 in the file qa/test.app.json, should be written traefik.backend.healthcheck.path.
+ERROR: In the line 29 in the file qa/test.app.json, should be written traefik.backend.healthcheck.port.
+ERROR: In the line 32 in the file qa/test.app.json, should be written upgradeStrategy.
+ERROR: In the line 33 in the file qa/test.app.json, should be written minimumHealthCapacity.
+ERROR: In the line 33 in the file qa/test.app.json, the input of minimumHealthCapacity field isn't valid.
+ERROR: In the line 34 in the file qa/test.app.json, should be written maximumOverCapacity.
+ERROR: In the line 36 in the file qa/test.app.json, should be written backoffSeconds.
+ERROR: In the line 37 in the file qa/test.app.json, should be written backoffFactor.
+ERROR: In the line 38 in the file qa/test.app.json, should be written maxLaunchDelaySeconds.
+ERROR: In the line 39 in the file qa/test.app.json, should be written container.
+ERROR: In the line 40 in the file qa/test.app.json, should be written type.
+ERROR: In the line 41 in the file qa/test.app.json, should be written docker.
+ERROR: In the line 42 in the file qa/test.app.json, should be written image.
+ERROR: In the line 43 in the file qa/test.app.json, should be written network.
+ERROR: In the line 44 in the file qa/test.app.json, should be written parameters.
+ERROR: In the line 46 in the file qa/test.app.json, should be written key.
+ERROR: In the line 47 in the file qa/test.app.json, should be written value.
+ERROR: In the line 47 in the file qa/test.app.json, the input of value field isn't valid.
+ERROR: In the line 50 in the file qa/test.app.json, should be written key.
+ERROR: In the line 51 in the file qa/test.app.json, should be written value.
+ERROR: In the line 54 in the file qa/test.app.json, should be written key.
+ERROR: In the line 55 in the file qa/test.app.json, should be written value.
+ERROR: In the line 59 in the file qa/test.app.json, should be written containerPort.
+ERROR: In the line 60 in the file qa/test.app.json, should be written protocol.
+ERROR: In the line 62 in the file qa/test.app.json, should be written forcePullImage.
+ERROR: In the line 65 in the file qa/test.app.json, should be written healthChecks.
+ERROR: In the line 66 in the file qa/test.app.json, should be written protocol.
+ERROR: In the line 67 in the file qa/test.app.json, should be written command.
+ERROR: In the line 68 in the file qa/test.app.json, should be written gracePeriodSeconds.
+ERROR: In the line 69 in the file qa/test.app.json, should be written intervalSeconds.
+ERROR: In the line 70 in the file qa/test.app.json, should be written timeoutSeconds.
+ERROR: In the line 71 in the file qa/test.app.json, should be written maxConsecutiveFailures.
+ERROR: In the line 72 in the file qa/test.app.json, should be written port.
+ERROR: Could not find the parameter requirePorts.
+ERROR: Could not find the parameter readinessChecks.
+ERROR: In the line 74 in the file qa/test.app.json, should be written ipAddress.
+ERROR: Could not find the parameter acceptedResourceRoles.

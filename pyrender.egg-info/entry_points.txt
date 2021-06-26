@@ -1,0 +1,3 @@
+[console_scripts]
+pyrender = pyrender.__main__:main
+
