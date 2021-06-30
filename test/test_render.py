@@ -154,6 +154,7 @@ def test_rendering_complex_jinja():
     oo = render.JinjaRender(jinja_name, parameters, output)
     oo.RenderJinjaFile()
     assert filecmp.cmp(output, rendered_file)
+    os.remove(output)
 
 
 def test_if_fail_to_overwrite_without_parameter():

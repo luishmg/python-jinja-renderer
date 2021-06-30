@@ -101,5 +101,22 @@ def test_pyrender_list_parameter():
         "foo=10.1.0.10,10.1.0.11,10.1.0.12",
         "--output",
         output
-    ])
+    ]) == 0
     assert filecmp.cmp(output, rendered_file)
+    os.remove(output)
+
+
+def test_pass_empty_variable():
+    """
+    Test if the behavior is what is expected
+    """
+    jinja_name = "test/jinja-files/test.html.j2"
+    output = "/tmp/empty.html"
+    assert __main__.main([
+        jinja_name,
+        "--set",
+        "foo=",
+        "-o",
+        output
+    ]) == 0
+    os.remove(output)

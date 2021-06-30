@@ -111,3 +111,14 @@ def test_overwrite_file_parameter_force(parser):
         "/tmp/test.html",
         "--force"
     ])
+
+
+def test_set_receaving_empty_value(parser):
+    """
+    Test if the funcion now how to deal with empty value
+    """
+    assert parser.parse_args([
+        "test/jinja-files/test.html.j2",
+        "--set",
+        "foo="
+    ])

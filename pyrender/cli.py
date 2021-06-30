@@ -26,7 +26,7 @@ class VerifyIfFileExists(Action):
 class VerifyIfVariableIsValid(Action):
     def __call__(self, parser, namespace, values, option_string=None):
         def VerifyVariable(variable):
-            if re.match(r'^[a-zA-Z1-9-_]+=[^=]+$', variable):
+            if re.match(r'^[a-zA-Z1-9-_]+=[^=]*$', variable):
                 return variable.split("=")
             else:
                 print(
