@@ -6,7 +6,7 @@ import re
 
 def main(argv=None):
     args = CreateParser().parse_args(argv)
-    jinjaFile = JinjaRender(args.jinjafile, args.set, args.output)
+    jinjaFile = JinjaRender(args.jinjafile, args.set, args.output, args.force)
     if args.v:
         print(jinjaFile.RenderTemplate())
     message = jinjaFile.RenderJinjaFile()

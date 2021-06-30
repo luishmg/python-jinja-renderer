@@ -136,3 +136,19 @@ def test_multiple_variables_with_equal_sign():
         output
     ]) == 0
     os.remove(output)
+
+
+def test_test_if_the_overwrite_is_working():
+    """
+    Test if the behavior is what is expected
+    """
+    jinja_name = "test/jinja-files/test.html.j2"
+    output = "test/rendered-files/overwrite.html"
+    assert __main__.main([
+        jinja_name,
+        "--set",
+        "foo=batata",
+        "-o",
+        output,
+        "-f"
+    ]) == 0
