@@ -1,0 +1,35 @@
+[Unit]
+Description=Kubernetes Kubelet
+Documentation=https://github.com/kubernetes/kubernetes
+After=containerd.service
+Requires=containerd.service
+
+[Service]
+ExecStart=/usr/local/bin/kubelet \
+  --config=/var/lib/kubelet/kubelet-config.yaml \
+  --container-runtime=remote \
+  --container-runtime-endpoint=unix:///var/run/containerd/containerd.sock \
+  --image-pull-progress-deadline=2m \
+  --kubeconfig=/var/lib/kubelet/kubeconfig \
+  --network-plugin=cni \
+  --register-node=true \
+{%- if taint_list|length %}
+{%- if taint_list is iterable and (taint_list is not string and taint_list is not mapping) %}
+  --register-with-taints={{ taint_list|join(",") }} \
+{%- else %}
+  --register-with-taints={{ taint_list }} \
+{%- endif %}
+{%- endif %}
+{%- if node_labels|length %}
+{%- if node_labels is iterable and (node_labels is not string and node_labels is not mapping) %}
+  --node-labels={{ node_labels|join(",") }} \
+{%- else %}
+  --node-labels={{ node_labels }} \
+{%- endif %}
+{%- endif %}
+  --v={{ kubelet_log_level }}
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

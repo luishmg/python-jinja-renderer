@@ -138,7 +138,7 @@ def test_multiple_variables_with_equal_sign():
     os.remove(output)
 
 
-def test_test_if_the_overwrite_is_working():
+def test_if_the_overwrite_is_working():
     """
     Test if the behavior is what is expected
     """
@@ -152,3 +152,26 @@ def test_test_if_the_overwrite_is_working():
         output,
         "-f"
     ]) == 0
+
+
+def test_if_the_output_match():
+    """
+    Test if the behavior is what is expected
+    """
+    jinja_name = "test/jinja-files/kubelet.service.j2"
+    rendered_file = "test/rendered-files/kubelet.service"
+    output = "/tmp/kubelet.service"
+    __main__.main([
+        jinja_name,
+        "--set",
+        "taint_list=",
+        "--set",
+        "node_labels=zone=A,environment=admin",
+        "--set",
+        "kubelet_log_level=3",
+        "-o",
+        output,
+        "-f"
+    ]) == 0
+    assert filecmp.cmp(output, rendered_file)
+    os.remove(output)

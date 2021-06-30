@@ -30,7 +30,7 @@ class VerifyIfVariableIsValid(Action):
                 return variable.split("=")
             elif re.match(r'^[a-zA-Z1-9-_]+=.+=.+$', variable):
                 name = variable.split("=")[0]
-                value = '='.join(variable.split("=")[0][1:])
+                value = '='.join(variable.split("=")[1:])
                 return [name, value]
             else:
                 print(
