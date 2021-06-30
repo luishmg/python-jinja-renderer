@@ -168,3 +168,15 @@ def test_if_fail_to_overwrite_without_parameter():
     oo = render.JinjaRender(jinja_name, parameters, output)
     err_msg = "Failed to render the file, it already exists"
     assert oo.RenderJinjaFile() == err_msg
+
+
+def test_varibles_with_equal_sign():
+    """
+    Test if the file is returning the expected success message
+    """
+    jinja_name = "test/jinja-files/test-list.html.j2"
+    parameters = {'foo': ["zone=A", "environment=admin"]}
+    oo = render.JinjaRender(jinja_name, parameters)
+    rendered_file_name = ".".join(jinja_name.split("/")[-1].split(".")[:-1])
+    assert oo.RenderJinjaFile() == "Succeded in rendering the file"
+    os.remove(rendered_file_name)

@@ -120,3 +120,19 @@ def test_pass_empty_variable():
         output
     ]) == 0
     os.remove(output)
+
+
+def test_multiple_variables_with_equal_sign():
+    """
+    Test if the behavior is what is expected
+    """
+    jinja_name = "test/jinja-files/test-list.html.j2"
+    output = "/tmp/empty.html"
+    assert __main__.main([
+        jinja_name,
+        "--set",
+        "foo=zone=A,environment=admin",
+        "-o",
+        output
+    ]) == 0
+    os.remove(output)

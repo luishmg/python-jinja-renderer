@@ -28,6 +28,10 @@ class VerifyIfVariableIsValid(Action):
         def VerifyVariable(variable):
             if re.match(r'^[a-zA-Z1-9-_]+=[^=]*$', variable):
                 return variable.split("=")
+            elif re.match(r'^[a-zA-Z1-9-_]+=.+=.+$', variable):
+                name = variable.split("=")[0]
+                value = '='.join(variable.split("=")[0][1:])
+                return [name, value]
             else:
                 print(
                     "Value isn't on and acceptable format"

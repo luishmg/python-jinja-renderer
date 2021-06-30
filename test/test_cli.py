@@ -122,3 +122,14 @@ def test_set_receaving_empty_value(parser):
         "--set",
         "foo="
     ])
+
+
+def test_values_with_equal_sign(parser):
+    """
+    Test if the funcion now how to deal with empty value
+    """
+    assert parser.parse_args([
+        "test/jinja-files/test.html.j2",
+        "--set",
+        "foo=zone=A,environment=admin"
+    ])
