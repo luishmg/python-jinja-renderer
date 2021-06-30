@@ -11,7 +11,10 @@ class JinjaRender:
         self.force = force
 
     def RenderTemplate(self):
-        file_loader = FileSystemLoader('.')
+        if re.match(r'^/.*$', self.file_name):
+            file_loader = FileSystemLoader('/')
+        else:
+            file_loader = FileSystemLoader('.')
         env = Environment(loader=file_loader)
         template = env.get_template(self.file_name)
         return template.render(self.parameters)

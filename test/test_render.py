@@ -2,6 +2,7 @@ import pytest
 import os
 import shutil
 import filecmp
+import pathlib
 from pyrender import render
 
 
@@ -180,3 +181,17 @@ def test_varibles_with_equal_sign():
     rendered_file_name = ".".join(jinja_name.split("/")[-1].split(".")[:-1])
     assert oo.RenderJinjaFile() == "Succeded in rendering the file"
     os.remove(rendered_file_name)
+
+
+def test_using_absolute_path():
+    """
+    Test if the file was created on the folder passed as paramter
+    """
+    current_directory = str(pathlib.Path().resolve())
+    jinja_name = current_directory + "/test/jinja-files/test.html.j2"
+    parameters = {'foo': 'batata'}
+    output = "/tmp/index.html"
+    oo = render.JinjaRender(jinja_name, parameters, output)
+    oo.RenderJinjaFile()
+    assert os.path.isfile(output)
+    os.remove(output)
